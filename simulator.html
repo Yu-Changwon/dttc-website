@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>시뮬레이터 데모 | METAGATE DTTC</title>
+  <meta name="description" content="브라우저에서 즉시 실행되는 6단계 FSM 기반 드론 임무 시뮬레이션 데모. 별도 설치 없이 키보드만으로 이륙·정찰·정밀 타격·귀환·착륙·평가까지 체험할 수 있습니다.">
+  <meta property="og:title" content="시뮬레이터 데모 | METAGATE DTTC">
+  <meta property="og:description" content="브라우저에서 즉시 실행되는 6단계 FSM 기반 드론 임무 시뮬레이션.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dttc.metagate.net/simulator.html">
+  <link rel="canonical" href="https://dttc.metagate.net/simulator.html">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-mark">DT</span>
+        <span>METAGATE DTTC<small>Defense Technology Training Center</small></span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="about.html">DTTC 소개</a></li>
+        <li><a href="courses.html">교육 과정</a></li>
+        <li><a href="simulator.html">시뮬레이터</a></li>
+        <li><a href="references.html">실적·레퍼런스</a></li>
+        <li><a href="resources.html">자료실</a></li>
+        <li><a href="contact.html" class="nav-cta">교육 신청</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="메뉴 열기"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h16M3 11h16M3 16h16"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">홈</a><span class="sep">›</span>시뮬레이터 데모</div>
+    <h1>브라우저에서 즉시 체험하는<br>6단계 FSM 미션 시나리오</h1>
+    <p>별도 설치 불필요. 크롬 브라우저에서 키보드 또는 게임패드로 바로 조작할 수 있습니다. 본 데모는 정식 DTTC-TAC 과정의 미션 시나리오를 단순화한 버전입니다.</p>
+  </div>
+</section>
+
+<!-- ============ SIMULATOR ============ -->
+<section class="section" style="padding-top: 56px;">
+  <div class="container">
+    <div class="sim-wrap">
+      <!-- HUD -->
+      <div class="sim-hud">
+        <span id="hud-phase"><strong>PHASE</strong> 준비</span>
+        <span id="hud-alt"><strong>ALT</strong> 0.0 m</span>
+        <span id="hud-spd"><strong>SPD</strong> 0.0 m/s</span>
+        <span id="hud-wp"><strong>WP</strong> 1/6</span>
+        <span id="hud-score"><strong>SCORE</strong> —</span>
+      </div>
+
+      <canvas id="sim-canvas" tabindex="0" aria-label="드론 시뮬레이션 캔버스"></canvas>
+
+      <!-- Phase Bar -->
+      <div class="sim-phase-bar" role="tablist" aria-label="미션 단계">
+        <div class="sim-phase active"><span class="num">PHASE 01</span>이륙</div>
+        <div class="sim-phase"><span class="num">PHASE 02</span>정찰</div>
+        <div class="sim-phase"><span class="num">PHASE 03</span>정밀 타격</div>
+        <div class="sim-phase"><span class="num">PHASE 04</span>귀환</div>
+        <div class="sim-phase"><span class="num">PHASE 05</span>착륙</div>
+        <div class="sim-phase"><span class="num">PHASE 06</span>임무 결과</div>
+      </div>
+
+      <!-- Controls -->
+      <div class="sim-controls">
+        <div class="keys">
+          <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 이동</span>
+          <span><kbd>Space</kbd> 상승</span>
+          <span><kbd>Shift</kbd> 하강</span>
+          <span><kbd>N</kbd> 다음 단계</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button id="sim-next" class="btn" style="background: rgba(255,255,255,0.12); color: #fff; padding: 8px 16px; font-size: 13px;">다음 단계</button>
+          <button id="sim-restart" class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">미션 재시작</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice" style="margin-top: 24px;">
+      <strong>이 데모는 단순화된 버전입니다.</strong> 정식 DTTC-TAC 과정에서는 EO/IR 센서 데이터, 교전 규칙(ROE), 부수 피해 평가, 비상 상황 시나리오, 자동 디브리핑 리포트 등 본격적인 전술 의사결정 콘텐츠가 포함됩니다. 본 데모는 키보드 조작과 자동 비행이 혼합된 형태로 동작합니다 — 키 입력이 없으면 자동으로 다음 웨이포인트로 이동합니다.
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPLOYMENT GUIDE ============ -->
+<section class="section section-bg">
+  <div class="container">
+    <span class="eyebrow">Platform</span>
+    <h2 class="section-title">정식 플랫폼 안내</h2>
+    <p class="section-subtitle">상기 데모는 빙산의 일각입니다. 정식 DTTC 플랫폼은 군 인트라넷 환경과 외부 클라우드를 모두 지원하는 이중 배포 구조로 제공됩니다.</p>
+
+    <div class="grid-2">
+      <article class="card">
+        <div class="pill" style="margin-bottom: 16px;">CLOUD</div>
+        <h3>클라우드 SaaS 버전</h3>
+        <p>외부 인터넷 환경에서 즉시 접속해 사용할 수 있는 SaaS 형태입니다. 회원가입 후 부서별로 수강 권한을 할당하고, 진행 현황을 실시간 대시보드로 관리할 수 있습니다.</p>
+        <ul style="list-style:none; padding:0; margin-top:16px; font-size:14px; color:var(--gray-600);">
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">접속</strong> · 즉시 (브라우저)</li>
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">대상</strong> · 민간 기업, 일반 교육기관</li>
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">업데이트</strong> · 자동 (CI/CD)</li>
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">결제</strong> · 월 / 연 단위</li>
+        </ul>
+        <div style="margin-top: 20px;">
+          <a href="contact.html" class="btn btn-outline-navy" style="width: 100%;">SaaS 버전 문의</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="pill" style="margin-bottom: 16px;">INTRANET</div>
+        <h3>인트라넷 로컬 설치 버전</h3>
+        <p>군 부대 내 폐쇄망 환경에 설치할 수 있는 로컬 인스톨러를 제공합니다. 외부망 접속 없이 부대 내부에서 동일한 교육 콘텐츠와 평가 체계를 운용할 수 있습니다.</p>
+        <ul style="list-style:none; padding:0; margin-top:16px; font-size:14px; color:var(--gray-600);">
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">설치</strong> · 부대 서버 (온프레미스)</li>
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">대상</strong> · 군·공공 기관</li>
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">보안</strong> · 외부망 격리, 감사 로그</li>
+          <li style="padding: 6px 0;"><strong style="color:var(--navy);">관리</strong> · 통합 콘솔 동기화</li>
+        </ul>
+        <div style="margin-top: 20px;">
+          <a href="contact.html" class="btn btn-navy" style="width: 100%;">인트라넷 버전 문의</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="notice navy" style="margin-top: 32px;">
+      <strong>군 보안 요구사항 대응</strong> — 공개 웹사이트는 외부 인터넷 환경에서만 접근 가능하며, 군 인트라넷 대응은 별도 로컬 설치판으로 분기됩니다. 군 관련 사진·자료는 부대 허가를 취득한 범위 내에서만 게재됩니다.
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPECS ============ -->
+<section class="section">
+  <div class="container">
+    <span class="eyebrow">Specifications</span>
+    <h2 class="section-title">기술 스펙</h2>
+    <p class="section-subtitle">DTTC 시뮬레이터는 별도 GPU 하드웨어 없이도 일반 사무용 PC에서 원활하게 동작합니다.</p>
+
+    <div class="table-wrap">
+      <table class="dttc-table">
+        <thead>
+          <tr><th>항목</th><th>최소 사양</th><th>권장 사양</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>브라우저</td><td>Chrome 110+, Edge 110+</td><td>Chrome 최신</td></tr>
+          <tr><td>CPU</td><td>Intel i3 / AMD Ryzen 3</td><td>Intel i5 / AMD Ryzen 5 이상</td></tr>
+          <tr><td>RAM</td><td>4GB</td><td>8GB 이상</td></tr>
+          <tr><td>GPU</td><td>내장 그래픽</td><td>외장 GPU 권장 (VRAM 2GB+)</td></tr>
+          <tr><td>해상도</td><td>1280 × 720</td><td>1920 × 1080 이상</td></tr>
+          <tr><td>입력 장치</td><td>키보드 + 마우스</td><td>USB 게임패드 (Xbox 호환)</td></tr>
+          <tr><td>네트워크</td><td>10 Mbps</td><td>50 Mbps (인트라넷판은 LAN)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>정식 시뮬레이터를 도입하시겠어요?</h2>
+    <p>귀 부대·기관 환경에 맞춘 시뮬레이터 도입 일정과 견적을 안내해 드립니다.</p>
+    <div class="btn-group">
+      <a href="contact.html" class="btn btn-primary btn-lg">도입 상담 신청</a>
+      <a href="resources.html#brochure" class="btn btn-outline btn-lg">브로셔 다운로드</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">METAGATE DTTC<small>Defense Technology Training Center</small></div>
+        <p>국방 드론 교육의 디지털 플랫폼을<br>메타게이트가 선도합니다.</p>
+        <p style="margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.5);">(주)메타게이트<br>대표 유영일 | 사업자 등록번호 000-00-00000</p>
+      </div>
+      <div class="footer-col">
+        <h5>서비스</h5>
+        <ul>
+          <li><a href="about.html">DTTC 소개</a></li>
+          <li><a href="courses.html">교육 과정</a></li>
+          <li><a href="simulator.html">시뮬레이터</a></li>
+          <li><a href="references.html">실적·레퍼런스</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>지원</h5>
+        <ul>
+          <li><a href="contact.html">교육 신청</a></li>
+          <li><a href="contact.html#group">단체 교육 문의</a></li>
+          <li><a href="resources.html">자료실</a></li>
+          <li><a href="resources.html#brochure">브로셔 다운로드</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>연락처</h5>
+        <ul>
+          <li>이메일: <a href="mailto:contact@metagate.net">contact@metagate.net</a></li>
+          <li>전화: 02-0000-0000</li>
+          <li><a href="resources.html#privacy">개인정보처리방침</a></li>
+          <li><a href="resources.html#terms">이용약관</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 METAGATE Inc. All rights reserved.</span>
+      <span>Powered by METAGATE | dttc.metagate.net</span>
+    </div>
+  </div>
+</footer>
+
+<div class="cookie-banner hidden" id="cookie-banner">
+  <span>본 사이트는 방문 분석을 위해 쿠키를 사용합니다. 계속 이용 시 동의한 것으로 간주합니다.</span>
+  <button type="button">동의</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/simulator.js"></script>
+</body>
+</html>

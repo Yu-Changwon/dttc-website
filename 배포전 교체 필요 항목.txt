@@ -1,0 +1,2 @@
+배포 전 교체 필요 항목: contact.html의 YOUR_FORM_ID(Formspree), 푸터의 이메일·전화·사업자 등록번호 플레이스홀더입니다.
+로컬에서 바로 확인하시려면 윈도우 터미널에서 python3 -m http.server 8080 실행 후 http://localhost:8080 접속하시면 됩니다.

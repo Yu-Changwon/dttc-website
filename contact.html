@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>교육 신청 | METAGATE DTTC</title>
+  <meta name="description" content="DTTC 교육 과정 신청 및 단체 교육 문의. 신청 후 1영업일 이내에 담당자가 직접 연락드립니다.">
+  <meta property="og:title" content="교육 신청 | METAGATE DTTC">
+  <meta property="og:description" content="DTTC 교육 과정 신청 및 단체 교육 문의. 신청 후 1영업일 이내 연락.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dttc.metagate.net/contact.html">
+  <link rel="canonical" href="https://dttc.metagate.net/contact.html">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-mark">DT</span>
+        <span>METAGATE DTTC<small>Defense Technology Training Center</small></span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="about.html">DTTC 소개</a></li>
+        <li><a href="courses.html">교육 과정</a></li>
+        <li><a href="simulator.html">시뮬레이터</a></li>
+        <li><a href="references.html">실적·레퍼런스</a></li>
+        <li><a href="resources.html">자료실</a></li>
+        <li><a href="contact.html" class="nav-cta">교육 신청</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="메뉴 열기"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h16M3 11h16M3 16h16"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">홈</a><span class="sep">›</span>교육 신청</div>
+    <h1>교육 신청 및 문의</h1>
+    <p>아래 양식을 작성해 주시면, 신청 즉시 담당자에게 알림이 전달됩니다. <strong style="color: #fff;">1영업일 이내</strong>에 이메일·전화로 연락드립니다.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 56px;">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start;" class="contact-grid">
+      <!-- LEFT: FORM -->
+      <div class="form-card">
+        <h2 style="font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 8px;">교육 신청 양식</h2>
+        <p style="font-size: 14px; color: var(--gray-600); margin-bottom: 28px;">개인정보 최소 수집 원칙에 따라 교육 운영에 꼭 필요한 항목만 받습니다.</p>
+
+        <!-- ⚠️ Formspree 연동 -->
+        <!-- 사용 방법:
+             1. https://formspree.io 가입 (무료 티어 월 50건)
+             2. 새 폼을 생성하고 받은 엔드포인트 URL을 아래 action 속성에 입력
+             3. 예: action="https://formspree.io/f/abcdEFGH" 형태
+             4. 이메일은 contact@metagate.net 등으로 자동 전달됩니다.
+        -->
+        <form id="apply-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="org">기관명/회사명<span class="req">*</span></label>
+              <input type="text" id="org" name="org" required placeholder="예: 육군 ○○부대 / ○○방산">
+            </div>
+            <div class="form-group">
+              <label for="name">신청자 성명<span class="req">*</span></label>
+              <input type="text" id="name" name="name" required placeholder="홍길동">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="position">직책 / 계급<span class="req">*</span></label>
+              <input type="text" id="position" name="position" required placeholder="예: 중위 / 책임">
+            </div>
+            <div class="form-group">
+              <label for="phone">연락처(전화)<span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" required placeholder="010-0000-0000" pattern="[0-9\-+\s]+">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">이메일<span class="req">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="contact@example.kr">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="course">희망 과정<span class="req">*</span></label>
+              <select id="course" name="course" required>
+                <option value="">과정을 선택하세요</option>
+                <option value="DTTC-BAS">DTTC-BAS · 드론 기초 조종·촬영</option>
+                <option value="DTTC-TAC">DTTC-TAC · 드론 전술 임무 훈련</option>
+                <option value="DTTC-INS">DTTC-INS · 교관 양성 과정</option>
+                <option value="DTTC-MRO">DTTC-MRO · 드론 정비·MRO</option>
+                <option value="DTTC-MAP">DTTC-MAP · 드론 맵핑·측량</option>
+                <option value="DTTC-ENT">DTTC-ENT · 민간 기업 커스텀</option>
+                <option value="UNDECIDED">미정 / 추천 요청</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="headcount">예상 참여 인원<span class="req">*</span></label>
+              <input type="number" id="headcount" name="headcount" required placeholder="예: 20" min="1" max="500">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>선호 교육 방식<span class="req">*</span></label>
+            <div class="radio-group" role="radiogroup">
+              <label><input type="radio" name="format" value="online" required>온라인 (클라우드)</label>
+              <label><input type="radio" name="format" value="onsite">집합 교육</label>
+              <label><input type="radio" name="format" value="hybrid">혼합 (온라인+집합)</label>
+              <label><input type="radio" name="format" value="intranet">인트라넷 설치</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="schedule">희망 일정 (선택)</label>
+            <input type="text" id="schedule" name="schedule" placeholder="예: 2026년 5월 중 / 분기별 정기 운영 등">
+          </div>
+
+          <div class="form-group">
+            <label for="message">문의 내용</label>
+            <textarea id="message" name="message" placeholder="기관의 임무 특성, 예산 범위, 특별 요청사항 등을 자유롭게 적어주세요."></textarea>
+            <div class="help">최대한 구체적으로 적어주시면 정확한 견적을 안내해 드립니다.</div>
+          </div>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree" style="margin: 0; font-weight: 500;">개인정보 수집·이용에 동의합니다 (수집 항목: 기관명, 성명, 직책, 연락처, 이메일 / 보유기간: 상담 후 1년)<span class="req">*</span></label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg form-submit">신청 제출하기</button>
+
+          <div class="form-success" id="form-success">
+            <strong>신청이 정상적으로 접수되었습니다.</strong><br>
+            1영업일 이내에 담당자가 이메일·전화로 연락드립니다. 등록하신 이메일로 접수 확인 메일과 브로셔가 자동 발송됩니다.
+          </div>
+          <div class="form-error" id="form-error">
+            <strong>전송 중 오류가 발생했습니다.</strong> 잠시 후 다시 시도하시거나, <a href="mailto:contact@metagate.net">contact@metagate.net</a>로 직접 연락 부탁드립니다.
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: Sidebar info -->
+      <aside>
+        <div class="form-card" style="padding: 28px;">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 14px;">접수 후 진행 절차</h3>
+          <ol style="padding-left: 18px; color: var(--gray-600); font-size: 14px; line-height: 1.8;">
+            <li><strong style="color: var(--navy);">즉시</strong> · 담당자에게 신청 알림 발송 + 신청자에게 자동 접수 확인 메일</li>
+            <li><strong style="color: var(--navy);">1영업일 이내</strong> · 담당자 직접 연락 (이메일·전화)</li>
+            <li><strong style="color: var(--navy);">3영업일 이내</strong> · 맞춤 견적 및 커리큘럼 제안서 발송</li>
+            <li><strong style="color: var(--navy);">협의 후</strong> · 계약 체결 및 교육 일정 확정</li>
+          </ol>
+        </div>
+
+        <div class="form-card" style="padding: 28px; margin-top: 16px;" id="group">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 12px;">단체 교육 문의 (B2G·B2B)</h3>
+          <p style="font-size: 14px; color: var(--gray-600); margin-bottom: 16px;">20명 이상의 단체 교육이나 인트라넷 설치판 도입은 별도 협의가 필요합니다. 위 양식의 "민간 기업 커스텀" 또는 "인트라넷 설치"를 선택해 신청해 주세요.</p>
+          <div style="font-size: 14px; color: var(--gray-600); padding-top: 16px; border-top: 1px solid var(--gray-100);">
+            <div><strong style="color: var(--navy);">이메일</strong> · <a href="mailto:contact@metagate.net" style="color: var(--orange);">contact@metagate.net</a></div>
+            <div style="margin-top: 6px;"><strong style="color: var(--navy);">전화</strong> · 02-0000-0000 (평일 10:00~18:00)</div>
+          </div>
+        </div>
+
+        <div class="notice navy" style="margin-top: 16px;">
+          <strong>군 보안 사항</strong><br>
+          <span style="font-size: 14px;">군 부대 신청은 부대 행정 절차에 따라 별도 공문 발송이 필요할 수 있습니다. 자세한 안내는 담당자가 연락드릴 때 함께 안내합니다.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">METAGATE DTTC<small>Defense Technology Training Center</small></div>
+        <p>국방 드론 교육의 디지털 플랫폼을<br>메타게이트가 선도합니다.</p>
+        <p style="margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.5);">(주)메타게이트<br>대표 유영일 | 사업자 등록번호 000-00-00000</p>
+      </div>
+      <div class="footer-col">
+        <h5>서비스</h5>
+        <ul>
+          <li><a href="about.html">DTTC 소개</a></li>
+          <li><a href="courses.html">교육 과정</a></li>
+          <li><a href="simulator.html">시뮬레이터</a></li>
+          <li><a href="references.html">실적·레퍼런스</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>지원</h5>
+        <ul>
+          <li><a href="contact.html">교육 신청</a></li>
+          <li><a href="contact.html#group">단체 교육 문의</a></li>
+          <li><a href="resources.html">자료실</a></li>
+          <li><a href="resources.html#brochure">브로셔 다운로드</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>연락처</h5>
+        <ul>
+          <li>이메일: <a href="mailto:contact@metagate.net">contact@metagate.net</a></li>
+          <li>전화: 02-0000-0000</li>
+          <li><a href="resources.html#privacy">개인정보처리방침</a></li>
+          <li><a href="resources.html#terms">이용약관</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 METAGATE Inc. All rights reserved.</span>
+      <span>Powered by METAGATE | dttc.metagate.net</span>
+    </div>
+  </div>
+</footer>
+
+<div class="cookie-banner hidden" id="cookie-banner">
+  <span>본 사이트는 방문 분석을 위해 쿠키를 사용합니다. 계속 이용 시 동의한 것으로 간주합니다.</span>
+  <button type="button">동의</button>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+/* ===== Contact form: Formspree AJAX submission =====
+   Formspree 가입 후, 위 form 태그의 action 속성에 본인 엔드포인트 URL을 넣으세요. */
+(function () {
+  const form = document.getElementById('apply-form');
+  const ok = document.getElementById('form-success');
+  const err = document.getElementById('form-error');
+  if (!form) return;
+
+  // Pre-fill course from URL param ?course=TAC
+  const params = new URLSearchParams(location.search);
+  const courseParam = params.get('course');
+  if (courseParam) {
+    const sel = form.querySelector('select[name="course"]');
+    if (sel) [...sel.options].forEach(o => { if (o.value.includes(courseParam)) sel.value = o.value; });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    ok.style.display = 'none';
+    err.style.display = 'none';
+
+    const action = form.getAttribute('action');
+    // 데모/개발 시: action이 'YOUR_FORM_ID' 인 상태면 콘솔 로그로만 대체
+    if (action.includes('YOUR_FORM_ID')) {
+      console.info('[DTTC] 폼 제출 데이터 (테스트 모드):', Object.fromEntries(new FormData(form)));
+      ok.style.display = 'block';
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      form.reset();
+      return;
+    }
+
+    try {
+      const res = await fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        ok.style.display = 'block';
+        ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        form.reset();
+      } else {
+        err.style.display = 'block';
+      }
+    } catch (e) {
+      err.style.display = 'block';
+    }
+  });
+})();
+</script>
+</body>
+</html>
