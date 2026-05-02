@@ -56,14 +56,10 @@
         <h2 style="font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 8px;">교육 신청 양식</h2>
         <p style="font-size: 14px; color: var(--gray-600); margin-bottom: 28px;">개인정보 최소 수집 원칙에 따라 교육 운영에 꼭 필요한 항목만 받습니다.</p>
 
-        <!-- ⚠️ Formspree 연동 -->
-        <!-- 사용 방법:
-             1. https://formspree.io 가입 (무료 티어 월 50건)
-             2. 새 폼을 생성하고 받은 엔드포인트 URL을 아래 action 속성에 입력
-             3. 예: action="https://formspree.io/f/abcdEFGH" 형태
-             4. 이메일은 cwyu@metagate.net 등으로 자동 전달됩니다.
-        -->
         <form id="apply-form" action="https://formspree.io/f/mvzlglny" method="POST">
+          <!-- Formspree 설정 필드 -->
+          <input type="hidden" name="_subject" value="[DTTC] 교육 신청이 접수되었습니다">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
           <div class="form-row">
             <div class="form-group">
               <label for="org">기관명/회사명<span class="req">*</span></label>
@@ -133,7 +129,7 @@
           </div>
 
           <div class="checkbox-row">
-            <input type="checkbox" id="agree" name="agree" required>
+            <input type="checkbox" id="agree" name="agree" required data-exclude>
             <label for="agree" style="margin: 0; font-weight: 500;">개인정보 수집·이용에 동의합니다 (수집 항목: 기관명, 성명, 직책, 연락처, 이메일 / 보유기간: 상담 후 1년)<span class="req">*</span></label>
           </div>
 
@@ -229,17 +225,16 @@
 
 <script src="js/common.js"></script>
 <script>
-/* ===== Contact form: Formspree AJAX submission =====
-   Formspree 가입 후, 위 form 태그의 action 속성에 본인 엔드포인트 URL을 넣으세요. */
+/* ===== Contact form: Formspree AJAX (Vanilla JS) ===== */
 (function () {
   const form = document.getElementById('apply-form');
-  const ok = document.getElementById('form-success');
-  const err = document.getElementById('form-error');
+  const ok   = document.getElementById('form-success');
+  const err  = document.getElementById('form-error');
+  const btn  = form ? form.querySelector('button[type="submit"]') : null;
   if (!form) return;
 
-  // Pre-fill course from URL param ?course=TAC
-  const params = new URLSearchParams(location.search);
-  const courseParam = params.get('course');
+  // URL 파라미터 ?course=TAC 로 과정 자동 선택
+  const courseParam = new URLSearchParams(location.search).get('course');
   if (courseParam) {
     const sel = form.querySelector('select[name="course"]');
     if (sel) [...sel.options].forEach(o => { if (o.value.includes(courseParam)) sel.value = o.value; });
@@ -250,31 +245,35 @@
     ok.style.display = 'none';
     err.style.display = 'none';
 
-    const action = form.getAttribute('action');
-    // 데모/개발 시: action이 'YOUR_FORM_ID' 인 상태면 콘솔 로그로만 대체
-    if (action.includes('YOUR_FORM_ID')) {
-      console.info('[DTTC] 폼 제출 데이터 (테스트 모드):', Object.fromEntries(new FormData(form)));
-      ok.style.display = 'block';
-      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      form.reset();
-      return;
-    }
+    // 중복 제출 방지
+    if (btn) { btn.disabled = true; btn.textContent = '제출 중…'; }
+
+    // 개인정보 동의 체크박스는 Formspree에 전송하지 않음
+    const data = new FormData(form);
+    data.delete('agree');
 
     try {
-      const res = await fetch(action, {
+      const res = await fetch(form.getAttribute('action'), {
         method: 'POST',
-        body: new FormData(form),
+        body: data,
         headers: { 'Accept': 'application/json' }
       });
+
       if (res.ok) {
         ok.style.display = 'block';
         ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
         form.reset();
       } else {
+        const json = await res.json().catch(() => ({}));
+        console.error('[DTTC] Formspree error:', json);
         err.style.display = 'block';
+        err.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-    } catch (e) {
+    } catch (_) {
       err.style.display = 'block';
+      err.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = '신청 제출하기'; }
     }
   });
 })();
