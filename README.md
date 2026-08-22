@@ -9,6 +9,7 @@ dttc-website/
 ├── index.html            # 홈 (히어로, 실적, 서비스, 트러스트, CTA)
 ├── about.html            # DTTC 소개 (미션, 운영구조, 기술스택, 기관 소개, MOU)
 ├── courses.html          # 교육 과정 목록 (6개 정규 과정 + 필터)
+├── unit-training.html    # 부대 위탁교육 (온라인 이론 + 주둔지 방문 실기 이중 트랙)
 ├── course-detail.html    # 과정 상세 (DTTC-TAC 예시, 커리큘럼·일정·교관)
 ├── simulator.html        # 시뮬레이터 데모 (Three.js 6단계 FSM + 플랫폼 안내)
 ├── references.html       # 실적·레퍼런스 (교육 실적, MOU, 언론 보도, 후기)
@@ -66,7 +67,7 @@ Vercel Dashboard → Project → Settings → Domains에서 `dttc.metagate.net`�
 배포 전 다음 값을 실제 정보로 교체해 주세요.
 
 ### Formspree 연동 (교육 신청 폼)
-**파일: `contact.html`**
+**파일: `contact.html`, `unit-training.html`** — 두 파일 모두 동일하게 교체해야 합니다.
 
 ```html
 <form id="apply-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
@@ -106,9 +107,29 @@ Vercel Dashboard → Project → Settings → Domains에서 `dttc.metagate.net`�
 | 개인정보처리방침 / 이용약관 | ✅ |
 | 반응형 (데스크톱/태블릿/모바일) | ✅ 720px·900px 브레이크포인트 |
 | 쿠키 동의 배너 | ✅ localStorage 저장 |
+| 부대 위탁교육 페이지 (온·오프 이중 트랙) | ✅ `unit-training.html` |
 | 브랜드 컬러 (네이비·오렌지) | ✅ CSS 변수로 관리 |
 | 폰트 (Pretendard + Inter) | ✅ jsDelivr CDN |
 | SEO 메타태그 (title/description/OG) | ✅ 페이지별 |
+
+
+## 부대 위탁교육 페이지 (`unit-training.html`)
+
+군 실무부대를 대상으로 한 위탁교육 전용 랜딩 페이지입니다.
+
+- **이중 트랙 다이어그램** — 온라인 이론 트랙과 주둔지 방문 실기 트랙이 &lsquo;기량 평가&rsquo;에서 합류하는 흐름을 인라인 SVG로 표현 (외부 라이브러리 없음)
+- **과정 편성표** — DTTC-UT-B / UT-S / UT-T / UT-I 4개 과정. 정규 과정(BAS·TAC·INS) 커리큘럼을 위탁 형태로 재편성
+- **5단계 신청 절차** — `.timeline.timeline-5` 사용
+- **부대 준비사항** — 교육장 규격은 국토교통부고시 제2025-185호 별표 4 기준 준용
+- **신청 폼** — Formspree AJAX 제출(`contact.html`과 동일 방식) + 우측 실시간 요약 패널 + `내용 복사` / `메일로 보내기` 버튼 (공문·메신저 발송용)
+- **FAQ 아코디언** — `<details>` 네이티브 요소 기반
+
+신규 CSS는 `css/styles.css` 하단의 `부대 위탁교육 (unit-training.html)` 블록에 모여 있습니다. 헤더 네비게이션이 8개 항목으로 늘어나면서 1080px 이하 구간의 네비 여백을 축소하는 미디어 쿼리도 같은 블록에 포함되어 있습니다.
+
+### 교체 필요 항목
+- Formspree `YOUR_FORM_ID`
+- 담당 이메일 `contact@metagate.net`, 전화 `02-0000-0000`
+- 정원·시간·교육장 규격 등 운영 수치는 실제 운영 기준으로 최종 확인 필요
 
 ## 시뮬레이터 동작 안내
 
